@@ -40,7 +40,7 @@ vim.keymap.set("n", "<M-l>", "<C-w>l")
 vim.keymap.set("n", "<M-k>", "<C-w>k")
 vim.keymap.set("n", "<M-j>", "<C-w>j")
 
-vim.keymap.set("i", "<C-k>", function() vim.lsp.buf.signature_help() end, opts)
+vim.keymap.set("i", "<C-i>", function() vim.lsp.buf.signature_help() end, opts)
 
 
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').help_tags, { desc = '[h] Find help tags' })
@@ -51,6 +51,7 @@ end, { desc = '[o] Find recently opened files (current directory)' })
 vim.keymap.set('n', '<leader>pe', '<cmd>Neotree toggle<CR>', { desc = '[e] Toggle file explorer' })
 
 vim.keymap.set('i', '{}', '{}<Left><CR><CR><Up>')
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- vim.g.copilot_no_tab_map = true
 -- vim.g.copilot_assume_mapped = true
 --
