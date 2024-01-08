@@ -1,6 +1,9 @@
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("n", "L", "$")
+
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -48,7 +51,7 @@ vim.keymap.set('n', '<leader>vo', function()
   require('telescope.builtin').oldfiles({ only_cwd = true })
 end, { desc = '[o] Find recently opened files (current directory)' })
 
-vim.keymap.set('n', '<leader>pe', '<cmd>Neotree toggle<CR>', { desc = '[e] Toggle file explorer' })
+vim.keymap.set('n', '<leader>xe', '<cmd>Neotree toggle<CR>', { desc = '[e] Toggle file explorer' })
 
 vim.keymap.set('i', '{}', '{}<Left><CR><CR><Up>')
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
