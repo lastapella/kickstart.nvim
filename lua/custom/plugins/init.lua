@@ -12,15 +12,102 @@ return {
   {
     'folke/trouble.nvim',
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function ()
+    config = function()
       require("trouble").setup {
         auto_open = false,
         auto_close = true,
       }
-      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, {desc="Trouble Toggle"})
-      vim.keymap.set("n", "<leader>xj", function() require("trouble").next({ skip_groups = true, jump = true }) end, {desc="Trouble Next"})
-      vim.keymap.set("n", "<leader>xk", function() require("trouble").previous({ skip_groups = true, jump = true }) end, {desc="Trouble Previous"})
+      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Trouble Toggle" })
+      vim.keymap.set("n", "<leader>xj", function() require("trouble").next({ skip_groups = true, jump = true }) end,
+        { desc = "Trouble Next" })
+      vim.keymap.set("n", "<leader>xk", function() require("trouble").previous({ skip_groups = true, jump = true }) end,
+        { desc = "Trouble Previous" })
     end
-  }
+  },
+  {
+    "folke/noice.nvim",
 
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+
+    },
+
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+
+      "rcarriga/nvim-notify",
+
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        messages = {
+          view_search = false
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+
+          -- command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true
+        },
+      })
+    end,
+  },
+  {
+    -- Set lualine as statusline
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'folke/noice.nvim'
+    },
+    -- See `:help lualine.txt`
+    config = function()
+      require('lualine').setup({
+        opts = {
+          options = {
+            icons_enabled = true,
+            theme = 'OceanicNext',
+            -- theme = 'onelight',
+            -- theme = 'auto',
+            -- component_separators = '|',
+            -- section_separators = '',
+          },
+        },
+        sections = {
+          lualine_c = {
+            { 'filename', path = 1 },
+            {
+              require("noice").api.status.search.get,
+              cond = require("noice").api.status.search.has,
+              color = { fg = "#ff9e64" },
+            },
+          },
+          lualine_x = {
+            {
+              require("noice").api.status.message.get_hl,
+              cond = require("noice").api.status.message.has,
+            },
+            {
+              require("noice").api.status.command.get,
+              cond = require("noice").api.status.command.has,
+              color = { fg = "#ff9e64" },
+            },
+          },
+        }
+      })
+    end
+  },
 }
