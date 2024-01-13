@@ -260,7 +260,7 @@ require('lazy').setup({
 
   {
     -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'navarasu/nedark.nvim',
     enabled = false,
     priority = 1000,
     config = function()
@@ -274,10 +274,11 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
+        icons_enabled = true,
+        theme = 'OceanicNext',
+        -- theme = 'auto',
+        -- component_separators = '|',
+        -- section_separators = '',
       },
       sections = {
         lualine_c = { { 'filename', path = 1 } }

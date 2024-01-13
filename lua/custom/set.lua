@@ -18,6 +18,8 @@ vim.opt.undofile = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.cursorline = true
+vim.cmd[[highlight CursorLine ctermbg=0 guibg=#474070]]
+vim.cmd[[highlight Visual ctermfg=0 guibg=#474070]]
 
 vim.opt.termguicolors = true
 
