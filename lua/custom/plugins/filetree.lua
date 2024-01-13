@@ -10,6 +10,10 @@ return {
   },
   config = function()
     require('neo-tree').setup({
+      window = {
+        position = "current",
+        -- auto_expand_width = true,
+      },
       filesystem = {
         filtered_items = {
           hide_dotfiles = false,
@@ -19,5 +23,6 @@ return {
         },
       },
     })
+    vim.keymap.set('n', '<leader>xe', '<cmd>Neotree action=show position=left toggle=true<CR>', { desc = '[e] Toggle file explorer' })
   end,
 }

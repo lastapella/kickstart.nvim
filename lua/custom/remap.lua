@@ -53,9 +53,6 @@ vim.keymap.set('n', '<leader>vo', function()
   require('telescope.builtin').oldfiles({ only_cwd = true })
 end, { desc = '[o] Find recently opened files (current directory)' })
 
-vim.keymap.set('n', '<leader>xe', '<cmd>Neotree toggle<CR>', { desc = '[e] Toggle file explorer' })
-
-vim.keymap.set('i', '{}', '{}<Left><CR><CR><Up>')
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- vim.g.copilot_no_tab_map = true
 -- vim.g.copilot_assume_mapped = true
@@ -75,7 +72,7 @@ function vim.getVisualSelection()
   end
 end
 
-
+-- Telescope remaps 
 vim.keymap.set('v', '<leader>sc', function()
   local text = vim.getVisualSelection()
   require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text })
@@ -93,3 +90,17 @@ end, { noremap = true, silent=true, desc = "Search for quickfix history"})
 vim.keymap.set('n', '<leader>sc', function()
   require('telescope.builtin').git_commits()
 end, { noremap = true, silent=true, desc = "Search for git commits"})
+
+
+-- Git remaps
+vim.keymap.set('n', '<leader>gs', function()
+  require('telescope.builtin').git_status()
+end, { noremap = true, silent=true, desc = "Search for git status"})
+
+vim.keymap.set('n', '<leader>gb', function()
+  require('telescope.builtin').git_branches()
+end, { noremap = true, silent=true, desc = "Search for git branches"})
+
+vim.keymap.set('n', '<leader>gt',':tab G<CR>', { noremap = true, silent=true, desc = "Open Git in a new Tab"})
+vim.keymap.set('n', '<leader>gP',':G push', { noremap = true, silent=true, desc = "Git push"})
+vim.keymap.set('n', '<leader>gp',':G pull', { noremap = true, silent=true, desc = "Git pull"})
