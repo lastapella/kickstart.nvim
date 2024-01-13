@@ -102,5 +102,5 @@ vim.keymap.set('n', '<leader>gb', function()
 end, { noremap = true, silent=true, desc = "Search for git branches"})
 
 vim.keymap.set('n', '<leader>gt',':tab G<CR>', { noremap = true, silent=true, desc = "Open Git in a new Tab"})
-vim.keymap.set('n', '<leader>gP',':G push', { noremap = true, silent=true, desc = "Git push"})
-vim.keymap.set('n', '<leader>gp',':G pull', { noremap = true, silent=true, desc = "Git pull"})
+vim.keymap.set('n', '<leader>gP',':G push<CR>', { noremap = true, silent=true, desc = "Git push"})
+vim.keymap.set('n', '<leader>gp',':G pull<CR>', { noremap = true, silent=true, desc = "Git pull"})
