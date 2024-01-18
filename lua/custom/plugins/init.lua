@@ -106,9 +106,6 @@ return {
             },
           },
           lualine_x = {
-            'encoding',
-            'fileformat',
-            'filetype',
             {
               require('noice').api.status.message.get_hl,
               cond = require('noice').api.status.message.has,
@@ -118,10 +115,16 @@ return {
               cond = require('noice').api.status.command.has,
               color = { fg = '#ff9e64' },
             },
+            'encoding',
+            'fileformat',
+            'filetype',
           },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' },
         },
         tabline = {
           lualine_a = { 'buffers' },
+          lualine_x = { { 'filename', path = 3 } },
           lualine_z = { { 'tabs', mode = 2 } },
         },
       }
