@@ -109,5 +109,63 @@ return {
         }
       })
     end
+  {
+    'ThePrimeagen/git-worktree.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension 'git_worktree'
+      vim.keymap.set('n', '<leader>gw', function()
+        require('telescope').extensions.git_worktree.git_worktrees()
+      end, { noremap = true, silent = true, desc = 'Switch Git Worktree' })
+      vim.keymap.set('n', '<leader>gc', function()
+        require('telescope').extensions.git_worktree.create_git_worktree()
+      end, { noremap = true, silent = true, desc = 'Create Git Worktree' })
+    end,
+  },
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup {
+        filetype = {
+          lua = { require('formatter.filetypes.lua').stylua },
+          typescript = { require('formatter.filetypes.typescript').prettier },
+          javascript = { require('formatter.filetypes.javascript').prettier },
+          json = { require('formatter.filetypes.json').fixjson },
+          ['*'] = {
+            require('formatter.filetypes.any').remove_trailing_whitespace,
+          },
+          -- javascript = {
+          --     function(parser)
+          --     local util = require "formatter.util"
+          --       if not parser then
+          --         return {
+          --           exe = "prettier",
+          --           args = {
+          --             "--stdin-filepath",
+          --             util.escape_path(util.get_current_buffer_file_path()),
+          --           },
+          --           stdin = true,
+          --           try_node_modules = true,
+          --         }
+          --       end
+          --
+          --       return {
+          --         exe = "prettier",
+          --         args = {
+          --           "--stdin-filepath",
+          --           util.escape_path(util.get_current_buffer_file_path()),
+          --           "--parser",
+          --           parser,
+          --         },
+          --         stdin = true,
+          --         try_node_modules = true,
+          --       }
+          --     end
+          -- }
+        },
+      }
+    end,
   },
 }
