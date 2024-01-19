@@ -86,7 +86,7 @@ return {
         options = {
           icons_enabled = true,
           -- theme = 'OceanicNext',
-          theme = 'oneDark',
+          theme = 'material',
           -- theme = 'auto',
           -- component_separators = '|',
           -- section_separators = '',
@@ -96,6 +96,11 @@ return {
             'branch',
             'diff',
             'diagnostics',
+            {
+              function()
+                return string.gsub(vim.fn.getcwd(), os.getenv 'HOME', '~')
+              end,
+            },
           },
           lualine_c = {
             { 'filename', path = 1 },
@@ -123,8 +128,9 @@ return {
           lualine_z = { 'location' },
         },
         tabline = {
-          lualine_a = { 'buffers' },
-          lualine_x = { { 'filename', path = 3 } },
+          lualine_a = {
+            { 'buffers', use_mode_colors = true, max_length = vim.o.columns * 2 / 3 },
+          },
           lualine_z = { { 'tabs', mode = 2 } },
         },
       }
@@ -157,34 +163,6 @@ return {
           ['*'] = {
             require('formatter.filetypes.any').remove_trailing_whitespace,
           },
-          -- javascript = {
-          --     function(parser)
-          --     local util = require "formatter.util"
-          --       if not parser then
-          --         return {
-          --           exe = "prettier",
-          --           args = {
-          --             "--stdin-filepath",
-          --             util.escape_path(util.get_current_buffer_file_path()),
-          --           },
-          --           stdin = true,
-          --           try_node_modules = true,
-          --         }
-          --       end
-          --
-          --       return {
-          --         exe = "prettier",
-          --         args = {
-          --           "--stdin-filepath",
-          --           util.escape_path(util.get_current_buffer_file_path()),
-          --           "--parser",
-          --           parser,
-          --         },
-          --         stdin = true,
-          --         try_node_modules = true,
-          --       }
-          --     end
-          -- }
         },
       }
     end,
