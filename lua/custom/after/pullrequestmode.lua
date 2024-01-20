@@ -26,4 +26,4 @@ function ToggleDiff(branch)
   end
 end
 
-vim.keymap.set('n', '<leader>gr', ToggleDiff(), { desc = 'Enter custom branch diff mode' })
+vim.keymap.set('n', '<leader>gr',function() ToggleDiff() end, { desc = 'Enter custom branch diff mode' })
