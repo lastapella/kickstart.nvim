@@ -178,4 +178,7 @@ return {
     end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
   },
+  {
+    'sindrets/diffview.nvim',
+  },
 }
