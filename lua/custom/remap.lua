@@ -116,3 +116,7 @@ vim.keymap.set('n', '<leader>gp', ':G pull<CR>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>g,', ':diffget 1<CR>', { noremap = true, silent = true, desc = 'diffget 1 ' })
 vim.keymap.set('n', '<leader>gm', ':diffget 2<CR>', { noremap = true, silent = true, desc = 'diffget 2 ' })
 vim.keymap.set('n', '<leader>g.', ':diffget 3<CR>', { noremap = true, silent = true, desc = 'diffget 3 ' })
+
+vim.keymap.set('n', '<leader>sp',require("spectre").toggle, {
+    desc = "Toggle Spectre"
+})
