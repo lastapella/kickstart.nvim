@@ -190,4 +190,5 @@ return {
       }
     end,
   },
+  { 'nvim-pack/nvim-spectre', config = function() end },
 }
