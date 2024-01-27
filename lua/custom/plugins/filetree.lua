@@ -23,6 +23,6 @@ return {
         },
       },
     })
-    vim.keymap.set('n', '<leader>xe', '<cmd>Neotree action=show position=left toggle=true<CR>', { desc = '[e] Toggle file explorer' })
+    vim.keymap.set('n', '<leader>xe', '<cmd>Neotree action=show focus position=left toggle=true<CR>', { desc = '[e] Toggle file explorer' })
   end,
 }
