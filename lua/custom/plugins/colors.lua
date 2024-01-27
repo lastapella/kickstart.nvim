@@ -17,15 +17,27 @@ return {
     name = 'rose-pine',
     config = function()
       require('rose-pine').setup {
-        -- dim_inactive_windows = true,
+        dim_inactive_windows = true,
         highlight_groups = {
           -- see: https://rosepinetheme.com/palette/
-          Normal = { bg = 'base0' },
+          Normal = { bg = 'surface' },
+          NormalFloat = { bg = 'surface' },
+
+          NoiceCmdline = { bg = 'surface' },
+          NoiceCmdlinePopupBorder = { fg = 'gold' },
+          NoiceCmdlinePopupTitle = { fg = 'gold' },
+          NoiceCmdlineIcon = { fg = 'gold' },
+          NoiceCmdlinePopup= { bg= 'surface' },
+          NoiceCmdlinePrompt= { bg= 'surface' },
+
+          -- TelescopeNormal = { bg = 'iris', fg = 'iris' },
+          -- TelescopePromptNormal = { bg = 'iris'},
+          -- TelescopePreviewNormal = { bg = 'surface'},
           -- Comment = { fg = "foam" },
           -- VertSplit = { fg = "muted", bg = "foam" },
         },
       }
-      vim.cmd.colorscheme 'rose-pine-moon'
+      vim.cmd.colorscheme 'rose-pine'
     end,
   },
   {
