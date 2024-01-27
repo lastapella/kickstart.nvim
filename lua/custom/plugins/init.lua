@@ -7,9 +7,6 @@ return {
   { 'tpope/vim-surround' },
   { 'github/copilot.vim' },
   {
-    'voldikss/vim-floaterm',
-  },
-  {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
@@ -190,5 +187,8 @@ return {
       }
     end,
   },
+  { 'RRethy/vim-illuminate' },
   { 'nvim-pack/nvim-spectre', config = function() end },
+  -- Buggy with other plugins
+  -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
 }
