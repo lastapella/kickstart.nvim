@@ -192,15 +192,15 @@ return {
   {
     'sindrets/diffview.nvim',
   },
-  {
-    'sunjon/shade.nvim',
-    config = function()
-      require('shade').setup {
-        overlay_opacity = 65,
-        opacity_step = 1,
-      }
-    end,
-  },
+  -- {
+  --   'sunjon/shade.nvim',
+  --   config = function()
+  --     require('shade').setup {
+  --       overlay_opacity = 65,
+  --       opacity_step = 1,
+  --     }
+  --   end,
+  -- },
   { 'RRethy/vim-illuminate' },
   { 'nvim-pack/nvim-spectre', config = function() end },
   -- Buggy with other plugins

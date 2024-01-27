@@ -9,11 +9,43 @@
 --
 -- ColorMyPencils()
 
+-- vim.o.background = ''
+
 return {
+  {
     'rose-pine/neovim',
-    as = 'rose-pine',
+    name = 'rose-pine',
     config = function()
-      vim.cmd.colorscheme 'rose-pine'
-     -- vim.cmd('colorscheme rose-pine')
-    end
-  }
+      require('rose-pine').setup {
+        -- dim_inactive_windows = true,
+        highlight_groups = {
+          -- see: https://rosepinetheme.com/palette/
+          Normal = { bg = 'base0' },
+          -- Comment = { fg = "foam" },
+          -- VertSplit = { fg = "muted", bg = "foam" },
+        },
+      }
+      vim.cmd.colorscheme 'rose-pine-moon'
+    end,
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    -- config = function()
+    --   vim.o.background = ''
+    --   vim.cmd.colorscheme 'kanagawa'
+    -- end,
+  },
+  {
+    'folke/tokyonight.nvim',
+    -- config = function()
+    --   vim.cmd.colorscheme('tokyonight')
+    -- end,
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    -- config = function()
+    --   vim.cmd.colorscheme 'catppuccin'
+    -- end,
+  },
+}
