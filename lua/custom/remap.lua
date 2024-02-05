@@ -40,10 +40,8 @@ vim.keymap.set('i', 'jk', '<Esc><Esc>')
 -- vim.keymap.set("n", "<leader>6", "<c-^>")
 vim.keymap.set('n', '<M-[>', '<cmd>bp<CR>', { noremap = true })
 vim.keymap.set('n', '<M-]>', '<cmd>bn<CR>', { noremap = true })
--- Need terminal to remap <C-H> to \x1b72;5u  TMUX: bind -n C-H send-keys C-S-H 
-vim.keymap.set('n', '<C-S-h>', '<cmd>bf<CR>', { noremap = true })
--- Need terminal to remap <C-H> to \x1b76;5u  TMUX: bind -n C-L send-keys C-S-L 
-vim.keymap.set('n', '<C-S-l>', '<cmd>bl<CR>', { noremap = true })
+vim.keymap.set('n', '<M-f>', '<cmd>bf<CR>', { noremap = true })
+vim.keymap.set('n', '<M-o>', '<cmd>bl<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>;', '<c-^>')
 vim.keymap.set('n', '<leader>bda', '<cmd>1,.-bd<CR><cmd>.+,$bd<CR>' )
 
@@ -52,6 +50,7 @@ vim.keymap.set('n', '<M-l>', '<C-w>l')
 vim.keymap.set('n', '<M-k>', '<C-w>k')
 vim.keymap.set('n', '<M-j>', '<C-w>j')
 vim.keymap.set('n', '<C-w>W', '<C-w>_', { desc = 'Max out windown height' })
+vim.keymap.set('n', '<C-w>t', '<C-w>T', { desc = 'Open current window in new tab' })
 
 vim.keymap.set('n', '<C-h>', '<C-o>', { noremap = true })
 vim.keymap.set('n', '<C-l>', '<C-i>', { noremap = true })

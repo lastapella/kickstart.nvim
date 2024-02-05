@@ -49,14 +49,23 @@ return {
     },
     config = function()
       require('noice').setup {
-        lsp = {
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true,
+        routes = {
+          {
+            filter = {
+              event = 'msg_show',
+              kind = 'search_count',
+            },
+            opts = { skip = true },
           },
         },
+        -- lsp = {
+        --   -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        --   override = {
+        --     ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+        --     ['vim.lsp.util.stylize_markdown'] = true,
+        --     ['cmp.entry.get_documentation'] = true,
+        --   },
+        -- },
         messages = {
           view_search = false,
         },
@@ -93,11 +102,11 @@ return {
             'branch',
             'diff',
             'diagnostics',
-            {
-              function()
-                return string.gsub(vim.fn.getcwd(), os.getenv 'HOME', '~')
-              end,
-            },
+            -- {
+            --   function()
+            --     return string.gsub(vim.fn.getcwd(), os.getenv 'HOME', '~')
+            --   end,
+            -- },
           },
           lualine_c = {
             { 'filename', path = 1 },
@@ -108,6 +117,11 @@ return {
             },
           },
           lualine_x = {
+            {
+              require('noice').api.statusline.mode.get,
+              cond = require('noice').api.statusline.mode.has,
+              color = { fg = '#ff9e64' },
+            },
             {
               require('noice').api.status.message.get_hl,
               cond = require('noice').api.status.message.has,
