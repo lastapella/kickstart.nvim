@@ -22,13 +22,15 @@ return {
           -- see: https://rosepinetheme.com/palette/
           Normal = { bg = 'surface' },
           NormalFloat = { bg = 'surface' },
+          CursorLine = { bg = 'highlight_med' },
+          Visual = { bg = 'highlight_high', bold = true },
 
           NoiceCmdline = { bg = 'surface' },
           NoiceCmdlinePopupBorder = { fg = 'gold' },
           NoiceCmdlinePopupTitle = { fg = 'gold' },
           NoiceCmdlineIcon = { fg = 'gold' },
-          NoiceCmdlinePopup= { bg= 'surface' },
-          NoiceCmdlinePrompt= { bg= 'surface' },
+          NoiceCmdlinePopup = { bg = 'surface' },
+          NoiceCmdlinePrompt = { bg = 'surface' },
 
           -- TelescopeNormal = { bg = 'iris', fg = 'iris' },
           -- TelescopePromptNormal = { bg = 'iris'},
