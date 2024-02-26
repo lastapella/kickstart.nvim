@@ -21,14 +21,14 @@ If you are experiencing issues, please make sure you have the latest versions.
 
 ### Install External Dependencies
 
+### Install External Dependencies
+
 > **NOTE**
 > [Backup](#FAQ) your previous configuration (if any exists)
 
 External Requirements:
 - Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
-- A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
 - Language Setup:
   - If want to write Typescript, you need `npm`
   - If want to write Golang, you will need `go`
@@ -89,20 +89,20 @@ information about extending and exploring Neovim.
 
 ### Getting Started
 
-[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
+See [Effective Neovim: Instant IDE](https://youtu.be/stqUbv-5u2s), covering the
+previous version. Note: The install via init.lua is outdated, please follow the
+install instructions in this file instead. An updated video is coming soon.
 
 ### Recommended Steps
 
 [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repo
-(so that you have your own copy that you can modify) and then install. You
-can install it on your machine using the methods above.
+(so that you have your own copy that you can modify) and then installing you
+can install to your machine using the methods above.
 
 > **NOTE**
 > Your fork's url will be something like this: `https://github.com/<your_github_username>/kickstart.nvim.git`
 
 #### Examples of adding popularly requested plugins
-
-NOTE: You'll need to uncomment the line in the init.lua that turns on loading custom plugins.
 
 <details>
   <summary>Adding autopairs</summary>
@@ -135,7 +135,7 @@ return {
 <details>
   <summary>Adding a file tree plugin</summary>
 
-This will install the tree plugin and add the command `:Neotree` for you. For more information, see the documentation at [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
+This will install the tree plugin and add the command `:Neotree` for you. You can explore the documentation at [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) for more information.
 
 In the file: `lua/custom/plugins/filetree.lua`, add:
 
@@ -195,21 +195,3 @@ This requires:
 ```lua
 {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 ```
-
-Alternatively, one can install gcc and make which don't require changing the config,
-the easiest way is to use choco:
-
-1. install [chocolatey](https://chocolatey.org/install)
-either follow the instructions on the page or use winget,
-run in cmd as **admin**:
-```
-winget install --accept-source-agreements chocolatey.chocolatey
-```
-
-2. install all requirements using choco, exit previous cmd and
-open a new one so that choco path is set, and run in cmd as **admin**:
-```
-choco install -y neovim git ripgrep wget fd unzip gzip mingw make
-```
-
-Then, continue with the [Install Kickstart](#Install-Kickstart) step.
