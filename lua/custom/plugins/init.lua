@@ -5,6 +5,7 @@
 return {
   { 'ThePrimeagen/harpoon', branch = 'harpoon2', dependencies = { { 'nvim-lua/plenary.nvim' } } },
   { 'tpope/vim-surround' },
+  { 'tpope/vim-fugitive' },
   { 'github/copilot.vim' },
   {
     'folke/trouble.nvim',
@@ -56,6 +57,14 @@ return {
               kind = 'search_count',
             },
             opts = { skip = true },
+          },
+          {
+            view = 'split',
+            filter = { event = 'msg_show', min_height = 20 },
+          },
+          {
+            view = 'popup',
+            filter = { event = 'msg_show', kind = 'confirm' },
           },
         },
         -- lsp = {
@@ -189,22 +198,36 @@ return {
     end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
   },
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {
-      {
-        'nvim-telescope/telescope-live-grep-args.nvim',
-        -- This will not install any breaking changes.
-        -- For major updates, this must be adjusted manually.
-        version = '^1.0.0',
-      },
-    },
-    config = function()
-      require('telescope').load_extension 'live_grep_args'
-    end,
-  },
+  -- {
+  --   'nvim-telescope/telescope.nvim',
+  --   dependencies = {
+  --     {
+  --       'nvim-telescope/telescope-live-grep-args.nvim',
+  --       -- This will not install any breaking changes.
+  --       -- For major updates, this must be adjusted manually.
+  --       version = '^1.0.0',
+  --     },
+  --   },
+  --   config = function()
+  --     require('telescope').load_extension 'live_grep_args'
+  --   end,
+  -- },
   {
     'sindrets/diffview.nvim',
+    config = function()
+      require('diffview').setup {
+        keymaps = {
+          file_panel = {
+            { 'n', '<c-b>', false },
+            { 'n', '<c-f>', false },
+          },
+          file_history_panel = {
+            { 'n', '<c-b>', false },
+            { 'n', '<c-f>', false },
+          },
+        },
+      }
+    end,
   },
   -- {
   --   'sunjon/shade.nvim',
