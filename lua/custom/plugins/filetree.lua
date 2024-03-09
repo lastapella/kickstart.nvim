@@ -16,20 +16,20 @@ return {
         sources = {
           {
             source = 'filesystem', -- string
-            display_name = '󰉓 F', -- string | nil
+            display_name = '󰉓 e', -- string | nil
           },
           {
             source = 'buffers', -- string
-            display_name = '󰈚 B', -- string | nil
+            display_name = '󰈚 b', -- string | nil
           },
           {
             source = 'git_status', -- string
-            display_name = '󰊢 G',
+            display_name = '󰊢 g',
           },
-          { source = 'document_symbols', display_name = '󰑯 S' }, -- string | nil
+          { source = 'document_symbols', display_name = '󰑯 G' }, -- string | nil
         },
       },
-      close_if_last_window = true,
+      -- close_if_last_window = true,
       window = {
         position = 'current',
         mappings = {
@@ -50,6 +50,8 @@ return {
           end,
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['/'] = 'noop',
+          ['f'] = 'fuzzy_finder',
+          ['F'] = 'filter_on_submit',
         },
         -- auto_expand_width = true,
       },
@@ -63,8 +65,24 @@ return {
           enabled = true,
         },
       },
+      document_symbols = {
+        follow_cursor = true,
+      },
     }
     vim.keymap.set('n', '<leader>xe', '<cmd>Neotree action=show focus position=left toggle=true<CR>', { desc = '[e] Toggle file explorer' })
+    vim.keymap.set('n', '<leader>xb', '<cmd>Neotree action=show focus position=left toggle=true source=buffers<CR>', { desc = '[b] Toggle buffers explorer' })
+    vim.keymap.set(
+      'n',
+      '<leader>xg',
+      '<cmd>Neotree action=show focus position=left toggle=true source=git_status<CR>',
+      { desc = '[g] Toggle git_status explorer' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>xs',
+      '<cmd>Neotree action=show focus position=left toggle=true source=document_symbols<CR>',
+      { desc = '[s] Toggle document_symbols explorer' }
+    )
     vim.keymap.set('n', '<leader>xp', '<cmd>Neotree action=show focus position=float toggle=true<CR>', { desc = '[p] Toggle file explorer (float)' })
   end,
 }
