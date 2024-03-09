@@ -39,7 +39,14 @@ return {
           -- VertSplit = { fg = "muted", bg = "foam" },
         },
       }
-      vim.cmd.colorscheme 'rose-pine'
+      -- vim.cmd.colorscheme 'rose-pine'
+    end,
+  },
+  {
+    'EdenEast/nightfox.nvim',
+    config = function()
+      vim.o.background = ''
+      vim.cmd.colorscheme 'nightfox'
     end,
   },
   {
