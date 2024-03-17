@@ -43,10 +43,55 @@ return {
     end,
   },
   {
+    'folke/tokyonight.nvim',
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- Load the colorscheme here
+      -- You can configure highlights by doing something like
+      require('tokyonight').setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        style = 'storm', -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+        light_style = 'day', -- The theme is used when the background is set to light
+        transparent = false,
+        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+        styles = {
+          -- Style to be applied to different syntax groups
+          -- Value is any valid attr-list value for `:help nvim_set_hl`
+          comments = { italic = true },
+          keywords = { italic = true },
+
+          functions = {},
+          variables = {},
+          -- Background styles. Can be "dark", "transparent" or "normal"
+          sidebars = 'dark', -- style for sidebars, see below
+          floats = 'dark', -- style for floating windows
+        },
+        -- on_colors = function(colors)
+        --   colors.bg_visual = '#a371f5'
+        --   colors.bg_highlight = '#2e3c64'
+        -- end,
+        on_highlights = function(hl, c)
+          hl.NormalNC = {
+            bg = '#121629',
+            blend = 50,
+            -- standout = true,
+          }
+          hl.Visual = {
+            bg = c.bg_visual,
+            italic = true,
+          }
+        end,
+      }
+      vim.cmd.colorscheme 'tokyonight-storm'
+    end,
+  },
+  {
     'EdenEast/nightfox.nvim',
     config = function()
-      vim.o.background = ''
-      vim.cmd.colorscheme 'nightfox'
+      -- vim.o.background = ''
+      -- vim.cmd.colorscheme 'nightfox'
     end,
   },
   {
