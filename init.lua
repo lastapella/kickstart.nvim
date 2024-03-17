@@ -90,6 +90,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set to true if you have a Nerd Font installed
+vim.g.have_nerd_font = true
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -184,10 +187,14 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- [[ Basic Autocommands ]]
+--  See `:help lua-guide-autocommands`
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
@@ -214,7 +221,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup({
+require('lazy').setup {
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -706,6 +713,17 @@ require('lazy').setup({
           end
           return 'make install_jsregexp'
         end)(),
+        dependencies = {
+          -- `friendly-snippets` contains a variety of premade snippets.
+          --    See the README about individual language/framework/plugin snippets:
+          --    https://github.com/rafamadriz/friendly-snippets
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
+        },
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -714,12 +732,6 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-
-      -- If you want to add a bunch of pre-configured snippets,
-      --    you can use this plugin to help you. It even has snippets
-      --    for various frameworks/libraries/etc. but you will have to
-      --    set up the ones that are useful for you.
-      'rafamadriz/friendly-snippets',
     },
     config = function()
       -- See `:help cmp`
@@ -744,6 +756,10 @@ require('lazy').setup({
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
           ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+          -- scroll the documentation window [b]ack / [f]orward
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
@@ -773,6 +789,9 @@ require('lazy').setup({
               luasnip.jump(-1)
             end
           end, { 'i', 's' }),
+
+          -- For more advanced luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
           { name = 'nvim_lsp' },
@@ -793,6 +812,8 @@ require('lazy').setup({
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like
