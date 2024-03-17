@@ -24,9 +24,9 @@ return {
           },
           {
             source = 'git_status', -- string
-            display_name = '󰊢 g',
+            display_name = '󰊢 N',
           },
-          { source = 'document_symbols', display_name = '󰑯 G' }, -- string | nil
+          { source = 'document_symbols', display_name = '󰑯 n' }, -- string | nil
         },
       },
       -- close_if_last_window = true,
@@ -39,10 +39,10 @@ return {
           ['b'] = function()
             vim.api.nvim_exec('Neotree focus buffers left', true)
           end,
-          ['g'] = function()
+          ['N'] = function()
             vim.api.nvim_exec('Neotree focus git_status left', true)
           end,
-          ['G'] = function()
+          ['n'] = function()
             vim.api.nvim_exec('Neotree focus document_symbols left', true)
           end,
           ['M'] = function()

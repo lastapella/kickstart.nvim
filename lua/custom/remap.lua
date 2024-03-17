@@ -9,6 +9,7 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', '<leader>a', 'ggVG')
 
 -- greatest remap ever
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -140,3 +141,7 @@ vim.keymap.set('n', '[c', function()
 end, { silent = true, desc = 'Go to context' })
 
 vim.keymap.set('n', ']c', '``zz', { desc = 'Go back' })
+
+vim.keymap.set('n', '<leader>n', function()
+  require('neogit').open()
+end, { desc = 'Open Neogit' })
