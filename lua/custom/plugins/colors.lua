@@ -68,18 +68,23 @@ return {
           sidebars = 'dark', -- style for sidebars, see below
           floats = 'dark', -- style for floating windows
         },
+        -- dim_inactive = true,
         -- on_colors = function(colors)
         --   colors.bg_visual = '#a371f5'
         --   colors.bg_highlight = '#2e3c64'
         -- end,
         on_highlights = function(hl, c)
+          hl.Normal = {
+            bg = c.bg_dark,
+          }
           hl.NormalNC = {
-            bg = '#121629',
-            blend = 50,
-            -- standout = true,
+            bg = c.bg,
+          }
+          hl.CursorLine = {
+            bg = c.bg_visual,
           }
           hl.Visual = {
-            bg = c.bg_visual,
+            bg = c.blue7,
             italic = true,
           }
         end,
