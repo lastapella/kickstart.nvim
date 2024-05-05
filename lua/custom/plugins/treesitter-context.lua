@@ -14,7 +14,8 @@ function M.config()
 
   ts_context.setup{
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    separator = '-'
+    separator = '-',
+    max_lines = 8
   }
 end
 

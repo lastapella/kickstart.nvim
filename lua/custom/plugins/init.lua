@@ -173,37 +173,37 @@ return {
       }
     end,
   },
-  {
-    'ThePrimeagen/git-worktree.nvim',
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('telescope').load_extension 'git_worktree'
-      vim.keymap.set('n', '<leader>gw', function()
-        require('telescope').extensions.git_worktree.git_worktrees()
-      end, { noremap = true, silent = true, desc = 'Switch Git Worktree' })
-      vim.keymap.set('n', '<leader>gc', function()
-        require('telescope').extensions.git_worktree.create_git_worktree()
-      end, { noremap = true, silent = true, desc = 'Create Git Worktree' })
-    end,
-  },
-  {
-    'mhartington/formatter.nvim',
-    config = function()
-      require('formatter').setup {
-        filetype = {
-          lua = { require('formatter.filetypes.lua').stylua },
-          typescript = { require('formatter.filetypes.typescript').prettier },
-          javascript = { require('formatter.filetypes.javascript').prettier },
-          json = { require('formatter.filetypes.json').fixjson },
-          ['*'] = {
-            require('formatter.filetypes.any').remove_trailing_whitespace,
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   'ThePrimeagen/git-worktree.nvim',
+  --   dependencies = {
+  --     'nvim-telescope/telescope.nvim',
+  --   },
+  --   config = function()
+  --     require('telescope').load_extension 'git_worktree'
+  --     vim.keymap.set('n', '<leader>gw', function()
+  --       require('telescope').extensions.git_worktree.git_worktrees()
+  --     end, { noremap = true, silent = true, desc = 'Switch Git Worktree' })
+  --     vim.keymap.set('n', '<leader>gc', function()
+  --       require('telescope').extensions.git_worktree.create_git_worktree()
+  --     end, { noremap = true, silent = true, desc = 'Create Git Worktree' })
+  --   end,
+  -- },
+  -- {
+  --   'mhartington/formatter.nvim',
+  --   config = function()
+  --     require('formatter').setup {
+  --       filetype = {
+  --         lua = { require('formatter.filetypes.lua').stylua },
+  --         typescript = { require('formatter.filetypes.typescript').prettier },
+  --         javascript = { require('formatter.filetypes.javascript').prettier },
+  --         json = { require('formatter.filetypes.json').fixjson },
+  --         ['*'] = {
+  --           require('formatter.filetypes.any').remove_trailing_whitespace,
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     'LukasPietzschmann/telescope-tabs',
     config = function()
@@ -233,16 +233,16 @@ return {
     'sindrets/diffview.nvim',
     config = function()
       require('diffview').setup {
-        keymaps = {
-          file_panel = {
-            { 'n', '<c-b>', false },
-            { 'n', '<c-f>', false },
-          },
-          file_history_panel = {
-            { 'n', '<c-b>', false },
-            { 'n', '<c-f>', false },
-          },
-        },
+        -- keymaps = {
+        --   file_panel = {
+        --     { 'n', '<c-b>', false },
+        --     { 'n', '<c-f>', false },
+        --   },
+        --   file_history_panel = {
+        --     { 'n', '<c-b>', false },
+        --     { 'n', '<c-f>', false },
+        --   },
+        -- },
       }
     end,
   },
@@ -255,7 +255,7 @@ return {
   --     }
   --   end,
   -- },
-  { 'RRethy/vim-illuminate' },
+  -- { 'RRethy/vim-illuminate' },
   { 'nvim-pack/nvim-spectre', config = function() end },
   -- Buggy with other plugins
   -- { 'akinsho/toggleterm.nvim', version = '*', config = true },

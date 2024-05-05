@@ -423,6 +423,12 @@ require('lazy').setup {
             require('telescope.themes').get_dropdown(),
           },
         },
+        pickers = {
+          find_files = {
+            -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+            find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*'},
+          },
+        },
       }
 
       -- Enable telescope extensions, if they are installed
@@ -638,6 +644,9 @@ require('lazy').setup {
             },
           },
         },
+        terraformls = {
+          filetypes = { 'terraform', 'terraform-vars', 'terraformvarscustom' },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -669,6 +678,9 @@ require('lazy').setup {
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+            require('lspconfig').terraformls.setup {
+              fileypes = { 'terraform', 'terraform-vars', 'terraformvarscustom' },
+            }
           end,
         },
       }
@@ -679,10 +691,11 @@ require('lazy').setup {
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      -- format_on_save = {
+      --   timeout_ms = 500,
+      --   lsp_fallback = true,
+      -- },
+      format_on_save = false,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially

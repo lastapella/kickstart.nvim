@@ -36,18 +36,18 @@ return {
           ['e'] = function()
             vim.api.nvim_exec('Neotree focus filesystem left', true)
           end,
-          ['b'] = function()
-            vim.api.nvim_exec('Neotree focus buffers left', true)
-          end,
-          ['N'] = function()
-            vim.api.nvim_exec('Neotree focus git_status left', true)
-          end,
-          ['n'] = function()
-            vim.api.nvim_exec('Neotree focus document_symbols left', true)
-          end,
-          ['M'] = function()
-            vim.api.nvim_exec('Neotree focus toggle float', true)
-          end,
+          -- ['b'] = function()
+          --   vim.api.nvim_exec('Neotree focus buffers left', true)
+          -- end,
+          -- ['N'] = function()
+          --   vim.api.nvim_exec('Neotree focus git_status left', true)
+          -- end,
+          -- ['n'] = function()
+          --   vim.api.nvim_exec('Neotree focus document_symbols left', true)
+          -- end,
+          -- ['M'] = function()
+          --   vim.api.nvim_exec('Neotree focus toggle float', true)
+          -- end,
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['/'] = 'noop',
           ['f'] = 'fuzzy_finder',

@@ -75,7 +75,7 @@ vim.keymap.set('n', '<leader>gf', function()
   require('telescope.builtin').git_files()
 end, { desc = '[o] Find recently opened files (current directory)' })
 
-vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+-- vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- vim.g.copilot_no_tab_map = true
 -- vim.g.copilot_assume_mapped = true
 --
