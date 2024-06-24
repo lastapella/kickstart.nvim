@@ -13,6 +13,8 @@ vim.keymap.set('n', '<leader>a', 'ggVG')
 
 -- greatest remap ever
 vim.keymap.set('x', '<leader>p', [["_dP]])
+-- TODO: This is not working
+vim.keymap.set('x', 'y%', [[let @+=getreg('%')]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
@@ -48,10 +50,10 @@ vim.keymap.set('n', '<M-o>', '<cmd>bl<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>;', '<c-^>')
 vim.keymap.set('n', '<leader>bda', '<cmd>1,.-bd<CR><cmd>.+,$bd<CR>')
 
-vim.keymap.set('n', '<M-h>', '<C-w>h')
-vim.keymap.set('n', '<M-l>', '<C-w>l')
-vim.keymap.set('n', '<M-k>', '<C-w>k')
-vim.keymap.set('n', '<M-j>', '<C-w>j')
+-- vim.keymap.set('n', '<M-h>', '<C-w>h')
+-- vim.keymap.set('n', '<M-l>', '<C-w>l')
+-- vim.keymap.set('n', '<M-k>', '<C-w>k')
+-- vim.keymap.set('n', '<M-j>', '<C-w>j')
 vim.keymap.set('n', '<C-w>W', '<C-w>_', { desc = 'Max out windown height' })
 vim.keymap.set('n', '<C-w>t', '<C-w>T', { desc = 'Open current window in new tab' })
 

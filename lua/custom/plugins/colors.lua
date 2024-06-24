@@ -68,18 +68,21 @@ return {
           sidebars = 'dark', -- style for sidebars, see below
           floats = 'dark', -- style for floating windows
         },
-        -- dim_inactive = true,
+        dim_inactive = true,
         -- on_colors = function(colors)
         --   colors.bg_visual = '#a371f5'
         --   colors.bg_highlight = '#2e3c64'
         -- end,
         on_highlights = function(hl, c)
-          hl.Normal = {
-            bg = c.bg_dark,
-          }
-          hl.NormalNC = {
-            bg = c.bg,
-          }
+          -- hl.Normal = {
+          --   bg = c.bg_dark,
+          -- }
+          -- hl.NormalFloat = {
+          --   bg = c.bg_dark,
+          -- }
+          -- hl.NormalNC = {
+          --   bg = c.bg,
+          -- }
           hl.CursorLine = {
             bg = c.bg_visual,
           }
@@ -89,6 +92,9 @@ return {
           }
         end,
       }
+      vim.cmd.colorscheme 'vim'
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.cmd.colorscheme 'tokyonight-storm'
     end,
   },

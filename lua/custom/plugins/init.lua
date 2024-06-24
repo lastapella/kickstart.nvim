@@ -1,4 +1,4 @@
--- You can add your own plugins here or in other files in this directory!
+-- You can add your own plugins here or in other files in this directory!init
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
@@ -16,7 +16,13 @@ return {
     },
     config = true,
   },
-  { 'github/copilot.vim' },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.g.copilot_proxy_strict_ssl = false
+      vim.g.copilot_workspace_folders = { '~/workspace/krisplus' }
+    end,
+  },
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -120,6 +126,7 @@ return {
           -- theme = 'OceanicNext',
           -- theme = 'material',
           theme = 'auto',
+          -- theme = 'palenight',
           -- component_separators = '|',
           -- section_separators = '',
         },
@@ -148,10 +155,10 @@ return {
               cond = require('noice').api.statusline.mode.has,
               color = { fg = '#ff9e64' },
             },
-            {
-              require('noice').api.status.message.get_hl,
-              cond = require('noice').api.status.message.has,
-            },
+            -- {
+            --   require('noice').api.status.message.get_hl,
+            --   cond = require('noice').api.status.message.has,
+            -- },
             {
               require('noice').api.status.command.get,
               cond = require('noice').api.status.command.has,
