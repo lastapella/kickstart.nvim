@@ -270,11 +270,19 @@ return {
     -- Optional dependencies
     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if prefer nvim-web-devicons
-    config = function ()
-      require("oil").setup({
+    config = function()
+      require('oil').setup {
         default_file_explorer = false,
-      })
-    end
+        keymaps = {
+          ['<C-s>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
+          ['<C-h>'] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
+          ['<C-t>'] = { 'actions.select', opts = { tab = true }, desc = 'Open the entry in new tab' },
+          ['<C-p>'] = 'actions.preview',
+          ['<C-c>'] = 'actions.close',
+          ['<C-l>'] = 'actions.refresh',
+        },
+      }
+    end,
   },
   -- Buggy with other plugins
   -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
