@@ -12,9 +12,10 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', '<leader>a', 'ggVG')
 
 -- greatest remap ever
-vim.keymap.set('x', '<leader>p', [["_dP]])
--- TODO: This is not working
-vim.keymap.set('x', 'y%', [[let @+=getreg('%')]])
+vim.keymap.set('x', '<leader>p', [["0P]], {desc = 'Paste over without yanking'})
+vim.keymap.set('n', 'y%', function()
+  vim.fn.setreg('+', vim.fn.getreg '%')
+end, { desc = 'Yank filename to system clipboard' })
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
@@ -143,6 +144,8 @@ vim.keymap.set('n', '[c', function()
 end, { silent = true, desc = 'Go to context' })
 
 vim.keymap.set('n', ']c', '``zz', { desc = 'Go back' })
+vim.keymap.set('n', 'S', 's', { desc = 'Replace s' })
+vim.keymap.set('n', 'S', 's', { desc = 'Replace s' })
 
 vim.keymap.set('n', '<leader>n', function()
   require('neogit').open()

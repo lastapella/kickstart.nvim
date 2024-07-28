@@ -50,6 +50,7 @@ return {
           -- end,
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['/'] = 'noop',
+          ['<C-x>'] = 'noop',
           ['f'] = 'fuzzy_finder',
           ['F'] = 'filter_on_submit',
         },
@@ -70,6 +71,7 @@ return {
       },
     }
     vim.keymap.set('n', '<leader>xe', '<cmd>Neotree action=show focus position=left toggle=true<CR>', { desc = '[e] Toggle file explorer' })
+    vim.keymap.set('n', '<C-x>', '<cmd>Neotree action=show focus position=left toggle=true<CR>', { desc = 'Toggle file explorer' })
     vim.keymap.set('n', '<leader>xb', '<cmd>Neotree action=show focus position=left toggle=true source=buffers<CR>', { desc = '[b] Toggle buffers explorer' })
     vim.keymap.set(
       'n',
