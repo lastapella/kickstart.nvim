@@ -264,6 +264,18 @@ return {
   -- },
   -- { 'RRethy/vim-illuminate' },
   { 'nvim-pack/nvim-spectre', config = function() end },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if prefer nvim-web-devicons
+    config = function ()
+      require("oil").setup({
+        default_file_explorer = false,
+      })
+    end
+  },
   -- Buggy with other plugins
   -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
 }
