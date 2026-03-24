@@ -48,6 +48,26 @@ return {
           -- ['M'] = function()
           --   vim.api.nvim_exec('Neotree focus toggle float', true)
           -- end,
+          ["a"] = {
+            "add",
+            -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
+            -- some commands may take optional config options, see `:h neo-tree-mappings` for details
+            config = {
+              show_path = "relative", -- "none", "relative", "absolute"
+            },
+          },
+          ["yy"] = {
+            function(state)
+              vim.fn.setreg("+", state.tree:get_node().name)
+            end,
+            desc = "copy name to clipboard",
+          },
+          ["yp"] = {
+            function(state)
+              vim.fn.setreg("+", state.tree:get_node().path)
+            end,
+            desc = "copy path to clipboard",
+          },
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['/'] = 'noop',
           ['<C-x>'] = 'noop',

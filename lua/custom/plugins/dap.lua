@@ -99,9 +99,9 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
-      dapui.setup()
+    dapui.setup()
 
-    require("dap").defaults.fallback.switchbuf = 'usetab,uselast'
+    -- require("dap").defaults.fallback.switchbuf = 'usetab,uselast'
     for _, language in ipairs(js_based_languages) do
       dap.configurations[language] = {
         -- Debug single nodejs files

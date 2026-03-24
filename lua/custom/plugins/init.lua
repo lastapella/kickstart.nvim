@@ -23,6 +23,19 @@ return {
       vim.g.copilot_workspace_folders = { '~/workspace/krisplus' }
     end,
   },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
+    },
+    build = 'make tiktoken', -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+      --
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  },
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -30,6 +43,26 @@ return {
     main = 'ibl',
     opts = {},
   },
+  -- {
+  --   'folke/trouble.nvim',
+  --   config = function()
+  --     require('trouble').setup {
+  --       icons = false,
+  --     }
+  --
+  --     vim.keymap.set('n', '<leader>tt', function()
+  --       require('trouble').toggle("lsp_document_symbols")
+  --     end)
+  --
+  --     vim.keymap.set('n', '[t', function()
+  --       require('trouble').next { skip_groups = true, jump = true }
+  --     end)
+  --
+  --     vim.keymap.set('n', ']t', function()
+  --       require('trouble').previous { skip_groups = true, jump = true }
+  --     end)
+  --   end,
+  -- },
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -38,20 +71,14 @@ return {
         auto_open = false,
         auto_close = true,
       }
-      vim.keymap.set('n', '<leader>xx', function()
-        require('trouble').toggle()
-      end, { desc = 'Trouble Toggle' })
-      vim.keymap.set('n', '<leader>xw', function()
-        require('trouble').toggle 'workspace_diagnostics'
-      end, { desc = 'Trouble workspace diagnostics' })
-      vim.keymap.set('n', '<leader>xd', function()
-        require('trouble').toggle 'document_diagnostics'
-      end, { desc = 'Trouble document diagnostics' })
+      vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle <CR>', { desc = 'Trouble Toggle' })
+      vim.keymap.set('n', '<leader>xw', '<cmd>Trouble diagnostics toggle focus=false<CR> ', { desc = 'Trouble workspace diagnostics' })
+      vim.keymap.set('n', '<leader>xd', '<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>', { desc = 'Trouble document diagnostics' })
       vim.keymap.set('n', '<leader>xj', function()
         require('trouble').next { skip_groups = true, jump = true }
       end, { desc = 'Trouble Next' })
       vim.keymap.set('n', '<leader>xk', function()
-        require('trouble').previous { skip_groups = true, jump = true }
+        require('trouble').prev { skip_groups = true, jump = true }
       end, { desc = 'Trouble Previous' })
     end,
   },
@@ -99,6 +126,7 @@ return {
         --   },
         -- },
         messages = {
+          enabled = false,
           view_search = false,
         },
         -- you can enable a preset for easier configuration
@@ -117,6 +145,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'folke/noice.nvim',
+      'folke/tokyonight.nvim',
     },
     -- See `:help lualine.txt`
     config = function()
@@ -125,7 +154,9 @@ return {
           icons_enabled = true,
           -- theme = 'OceanicNext',
           -- theme = 'material',
-          theme = 'auto',
+          -- theme = 'ayu_mirage',
+          -- theme = 'auto',
+					-- theme = 'tokyonight'
           -- theme = 'palenight',
           -- component_separators = '|',
           -- section_separators = '',
@@ -146,7 +177,7 @@ return {
             {
               require('noice').api.status.search.get,
               cond = require('noice').api.status.search.has,
-              color = { fg = '#ff9e64' },
+              -- color = { 'lualine_c_normal' },
             },
           },
           lualine_x = {
@@ -240,6 +271,7 @@ return {
     'sindrets/diffview.nvim',
     config = function()
       require('diffview').setup {
+        enhanced_diff_hl = true,
         -- keymaps = {
         --   file_panel = {
         --     { 'n', '<c-b>', false },
@@ -264,6 +296,14 @@ return {
   -- },
   -- { 'RRethy/vim-illuminate' },
   { 'nvim-pack/nvim-spectre', config = function() end },
+  {
+    'mbbill/undotree',
+    config = function()
+      vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
+      vim.g.undotree_SetFocusWhenToggle = 1
+      vim.g.undotree_WindowLayout = 4
+    end,
+  },
   {
     'stevearc/oil.nvim',
     opts = {},

@@ -59,7 +59,14 @@ vim.keymap.set('n', '<C-w>W', '<C-w>_', { desc = 'Max out windown height' })
 vim.keymap.set('n', '<C-w>t', '<C-w>T', { desc = 'Open current window in new tab' })
 
 -- Terminal remaps
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+vim.keymap.set('t', 'jkj', '<C-\\><C-n>')
+vim.keymap.set('t', '<C-]>', '<C-\\><C-n>')
+vim.keymap.set('t', '<Esc>', function()
+  if vim.api.nvim_buf_get_name(0):lower():match 'claude' then
+    return '<Esc>'
+  end
+  return '<C-\\><C-n>'
+end, { expr = true })
 vim.keymap.set('t', '<M-h>', '<C-\\><C-n><C-w>h')
 vim.keymap.set('t', '<M-l>', '<C-\\><C-n><C-w>l')
 vim.keymap.set('t', '<M-k>', '<C-\\><C-n><C-w>k')

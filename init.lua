@@ -210,6 +210,33 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+local function biome_lsp_or_prettier(bufnr)
+  local has_biome_lsp = vim.lsp.get_clients({
+    bufnr = bufnr,
+    name = 'biome',
+  })[1]
+  if has_biome_lsp then
+    return {}
+  end
+  local has_prettier = vim.fs.find({
+    -- https://prettier.io/docs/en/configuration.html
+    '.prettierrc',
+    '.prettierrc.json',
+    '.prettierrc.yml',
+    '.prettierrc.yaml',
+    '.prettierrc.json5',
+    '.prettierrc.js',
+    '.prettierrc.cjs',
+    '.prettierrc.toml',
+    'prettier.config.js',
+    'prettier.config.cjs',
+  }, { upward = true })[1]
+  if has_prettier then
+    return { 'prettier' }
+  end
+  return { 'biome' }
+end
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -224,8 +251,17 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup {
 
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim',
+    event = 'BufReadPost', -- Only load after opening a file
+    config = function()
+      require('guess-indent').setup {
+        -- You can leave this empty to use all defaults
+        -- By default, it automatically runs when you open a new buffer.
+      }
+    end,
+  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -408,16 +444,62 @@ require('lazy').setup {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+
+      local function send_to_claude(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local actions = require 'telescope.actions'
+        local claudecode = require 'claudecode'
+        claudecode.start()
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        local multi = picker:get_multi_selection()
+        local paths = {}
+        if #multi > 0 then
+          for _, entry in ipairs(multi) do
+            local path = entry.path or entry.filename
+            if path then
+              table.insert(paths, path)
+            end
+          end
+        else
+          local entry = action_state.get_selected_entry()
+          local path = entry and (entry.path or entry.filename)
+          if path then
+            table.insert(paths, path)
+          end
+        end
+        actions.close(prompt_bufnr)
+        for _, path in ipairs(paths) do
+          vim.cmd('ClaudeCodeAdd ' .. vim.fn.fnameescape(path))
+        end
+      end
+
+      local function send_all_to_claude(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local actions = require 'telescope.actions'
+        local claudecode = require 'claudecode'
+        claudecode.start()
+        local picker = action_state.get_current_picker(prompt_bufnr)
+        local manager = picker.manager
+        local paths = {}
+        for entry in manager:iter() do
+          local path = entry.path or entry.filename
+          if path then
+            table.insert(paths, path)
+          end
+        end
+        actions.close(prompt_bufnr)
+        for _, path in ipairs(paths) do
+          vim.cmd('ClaudeCodeAdd ' .. vim.fn.fnameescape(path))
+        end
+      end
+
       require('telescope').setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          mappings = {
+            i = { ['<C-s>'] = send_to_claude, ['<C-a>'] = send_all_to_claude },
+            n = { ['<C-s>'] = send_to_claude, ['<C-a>'] = send_all_to_claude },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -426,7 +508,7 @@ require('lazy').setup {
         pickers = {
           find_files = {
             -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-            find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*'},
+            find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
           },
         },
       }
@@ -611,7 +693,8 @@ require('lazy').setup {
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
+
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -692,6 +775,7 @@ require('lazy').setup {
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
+      formatters = {},
       -- format_on_save = {
       --   timeout_ms = 500,
       --   lsp_fallback = true,
@@ -700,13 +784,16 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { { 'prettierd', 'prettier' } },
-        typescript = { { 'prettierd', 'prettier' } },
-        json = { { 'fixjson' } },
+        javascript = { 'prettier', 'biome', stop_after_first = true },
+        typescript = { 'prettier', 'biome', stop_after_first = true },
+        javascriptreact = { 'prettier', 'biome', stop_after_first = true  },
+        typescriptreact = { 'prettier', 'biome', stop_after_first = true  },
+        json = { 'biome' },
+        jsonc = { 'biome' },
       },
     },
   },
@@ -847,7 +934,7 @@ require('lazy').setup {
       --  - va)  - [V]isually select [A]round [)]parenthen
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      require('mini.ai').setup { n_lines = 5000 }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -874,7 +961,6 @@ require('lazy').setup {
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
